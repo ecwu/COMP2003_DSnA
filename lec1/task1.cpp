@@ -10,17 +10,16 @@ long int factR(int n);
 
 int main() {
 	int user_input = 0;
-	printf("Please input a positive integer: ");
-	scanf("%d", &user_input);
+	do{
+		printf("Please input a positive integer: ");
+		scanf("%d", &user_input);
+	}while(user_input < 0); // the input must be positive
 	printf("Factorial of %d = %ld\n", user_input, factR(user_input));
 	return 0;
 }
 
 long int factR(int n) {
-	if (n == 0) {
-		return 1;
-	}
-	if (n == 1) {
+	if (n == 0 || n == 1) {
 		return 1;
 	}
 	return (n * factR(n - 1));
