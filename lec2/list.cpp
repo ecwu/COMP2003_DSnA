@@ -20,4 +20,26 @@ int main()
 	DeleteNode(&head, 0);
 	DisplayList(head);
 	DestroyList(head);
-}  
+}
+
+bool IsEmpty(Node* head){
+	if (head == NULL){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+Node* InsertNode(Node** phead, int index, double x){
+
+}
+
+/*
+
+– insert a new node *after* position index
+– position of nodes starts from 1
+– insert a new node as the head if index=0
+– returns a pointer to the new node if insertion
+is successful and null otherwise
+
+*/
