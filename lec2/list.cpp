@@ -57,11 +57,15 @@ Node* InsertNode(Node** phead, int index, double x){
 	return newNode;
 }
 
-/*
-
-– insert a new node *after* position index
-– position of nodes starts from 1
-– insert a new node as the head if index=0
-– returns a pointer to the new node if insertion is successful and null otherwise
-
-*/
+int FindNode(Node* head, double x){
+	pCurrent = head;
+	NodeIndex = 1;
+	while(pCurrent->data != x){
+		if(pCurrent->next == NULL){
+			return 0; // Can't find a valid index
+		}
+		pCurrent = pCurrent->next;
+		NodeIndex++;
+	}
+	return NodeIndex;
+}
