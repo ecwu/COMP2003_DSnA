@@ -79,7 +79,7 @@ int DeleteNode(Node **phead, double x){
 		free(pCurrent);
 		return NodeIndex;
 	}else{
-		while (pCurrent->next->data != x){
+		while (pCurrent->next->data != x){ // find the node before the delete node
 			if (pCurrent->next->next == NULL){
 				return 0; // Can't find a valid Node
 			}
@@ -88,7 +88,34 @@ int DeleteNode(Node **phead, double x){
 		}
 		pDelete = pCurrent->next;
 		pCurrent->next = pCurrent->next->next;
-		free(pDelete);
+		free(pDelete); // delete the node
 		return NodeIndex + 1;
 	}
+}
+
+void DisplayList(Node *head){
+	if (IsEmpty(head)){
+		printf("Empty Linked list\n");
+		return;
+	}
+	Node *pCurrent = head;
+	while(pCurrent->next != NULL){ // print every node in the linked list, until meet a node which its next is null
+		printf("%lf\n", pCurrent->data);
+		pCurrent = pCurrent->next; 
+	}
+	printf("%lf\n", pCurrent->data); // print the last node
+}
+
+void DestroyList(Node *head){ // free up the memory space
+	if (IsEmpty(head)){
+		printf("Empty Linked list\n");
+		return;
+	}
+	Node *pCurrent = head;
+	while (head->next != NULL){
+		head = pCurrent->next;
+		free(pCurrent);
+		pCurrent = head;
+	}
+	free(pCurrent);
 }
