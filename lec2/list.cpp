@@ -1,5 +1,6 @@
 #include "list.h"
-#include <stdio.h> 
+#include <stdio.h>
+#include <stdlib.h>
 
 int main() 
 { 
@@ -23,7 +24,7 @@ int main()
 }
 
 bool IsEmpty(Node* head){
-	if (head == NULL){
+	if (head == NULL){ // check the existence of the linked list
 		return true;
 	}else{
 		return false;
@@ -31,7 +32,29 @@ bool IsEmpty(Node* head){
 }
 
 Node* InsertNode(Node** phead, int index, double x){
-
+	if (index < 0){
+		return NULL; // if the index is invalid, return null
+	}
+	Node pCurrent = *phead;
+	int currentIndex = 1;
+	while (currentIndex < index && pCurrent){
+		if (pCurrent->next == NULL){
+			return NULL; // if the index is larger than the tail's index, return null
+		}
+		pCurrent = pCurrent->next;
+		currentIndex++;
+	}
+	Node* newNode = (Node*)malloc(sizeof(Node));
+	newNode->data = x;
+	if (index == 0){ // insert at the head of the linked list
+		newNode->next = *phead;
+		*phead = newNode; // Modify the original phead and point it to the new inserted node
+	}else{
+		newNode->next = pCurrent->next; // insert the node after that index node
+		pCurrent->next = newNode;
+		// no need to modify the pHead
+	}
+	return newNode;
 }
 
 /*
@@ -39,7 +62,6 @@ Node* InsertNode(Node** phead, int index, double x){
 – insert a new node *after* position index
 – position of nodes starts from 1
 – insert a new node as the head if index=0
-– returns a pointer to the new node if insertion
-is successful and null otherwise
+– returns a pointer to the new node if insertion is successful and null otherwise
 
 */
