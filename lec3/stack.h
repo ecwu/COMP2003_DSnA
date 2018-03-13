@@ -6,7 +6,7 @@ typedef struct{
 
 bool CreateStack(Stack *stack, int size);
 
-// Creates an empty stack whose capacity is size
+// Creates an empty stack with a capacity is size
 
 bool IsEmpty(Stack* stack);
 
@@ -26,7 +26,8 @@ bool Top(Stack* stack, double* x);
 bool Push(Stack* stack, double x);
 
 /*
-	Add a new element with value x to the top of the stack	Returns true if the operation is successful and false otherwise
+	Add a new element with value x to the top of the stack
+	Returns true if the operation is successful and false otherwise
 */
 
 bool Pop(Stack* stack, double* x);

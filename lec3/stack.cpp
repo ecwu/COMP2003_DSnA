@@ -56,7 +56,7 @@ bool Pop(Stack* stack, double* x){
 void DisplayStack(Stack* stack){
 	for (int i = stack -> top; i >= 0; i--){ // print from the end of the array (Stack top) to the head of the array (Stack Bottom)
  		if (i == stack -> top){
-			printf("top -->\t");
+			printf("top -->\t"); // print a indicator to show this is the top
 		}else{
 			printf("\t");
 		}
@@ -71,6 +71,7 @@ void DisplayStack(Stack* stack){
 
 void DestroyStack(Stack* stack){
 	free(stack -> values);
+	stack -> top = -1; // reset the stack top to -1 (empty)
 }
 
 int main(void) {
