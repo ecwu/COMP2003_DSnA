@@ -29,7 +29,7 @@ bool IsFull(Stack* stack){
 }
 
 bool Top(Stack* stack, double* x){
-	if(IsEmpty(stack)){
+	if(IsEmpty(stack)){ // Stack must has element(s) to find the top elements
 		return false;
 	}
 	*x = stack -> values[stack -> top];
@@ -37,25 +37,25 @@ bool Top(Stack* stack, double* x){
 }
 
 bool Push(Stack* stack, double x){
-	if(IsFull(stack)){
+	if(IsFull(stack)){ // Stack must be not empty to push a new element
 		return false;
 	}
-	stack -> values[++stack -> top] = x;
+	stack -> values[++stack -> top] = x; // stack->top increase first then index
 	return true;
 }
 
 bool Pop(Stack* stack, double* x){
-	if(IsEmpty(stack)){
+	if(IsEmpty(stack)){ // Stack must has element(s) to pop the top elements
 		return false;
 	}
-	*x = stack -> values[stack -> top--];
+	*x = stack -> values[stack -> top--]; // stack->top index first then decrease
 	return true;
 }
 
 
 void DisplayStack(Stack* stack){
-	for (int i = stack -> top; i >= 0; i--){
-		if (i == stack -> top){
+	for (int i = stack -> top; i >= 0; i--){ // print from the end of the array (Stack top) to the head of the array (Stack Bottom)
+ 		if (i == stack -> top){
 			printf("top -->\t");
 		}else{
 			printf("\t");
@@ -75,8 +75,8 @@ void DestroyStack(Stack* stack){
 
 int main(void) {
 	Stack stack;
-
 	double val;
+
 	CreateStack(&stack, 5);
 	Push(&stack, 5);
 	Push(&stack, 6.5);
@@ -92,4 +92,6 @@ int main(void) {
 		Pop(&stack, &val);
 	DisplayStack(&stack);
 	DestroyStack(&stack);
+
+	return 0;
 }
