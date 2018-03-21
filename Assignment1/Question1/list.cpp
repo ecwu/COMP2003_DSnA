@@ -2,37 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main() 
-{ 
-	Node *head = 0;
-	for(int i=0; i<5; i++)
-		InsertNode(&head, i, i);
-	DisplayList(head);
-	for(int i=0; i<5; i++)
-		InsertNode(&head, 0, i);
-	DisplayList(head);
-	for(int i=0; i<7; i+=2){
-		int idx = FindNode(head, i);
-		if(idx>0)
-			printf("%d is at position %d.\n", i, idx);
-		else
-			printf("%d is not in the list.\n", i);
-	}
-	printf("Old list:\n");
-	DisplayList(head);
-	printf("Total deleted %d: %d\n", 4, DeleteNodes(&head, 4));
-	printf("New list:\n");
-	DisplayList(head);
-	printf("------\n");
-	DeleteNode(&head, 0);
-	DisplayList(head);
-	printf("------\n");
-	RemoveDuplicates(&head);
-	DisplayList(head);
-	printf("------\n");
-	DisplayList(head);
-	DestroyList(head);
-}
 
 bool IsEmpty(Node* head){
 	if (head == NULL){ // check the existence of the linked list
@@ -119,7 +88,7 @@ void DisplayList(Node *head){
 
 void DestroyList(Node *head){ // free up the memory space
 	if (IsEmpty(head)){
-		printf("Empty Linked list\n");
+		printf("Already an empty Linked list\n");
 		return;
 	}
 	Node *pCurrent = head;
@@ -135,7 +104,6 @@ int DeleteNodes(Node** phead, double x) {
 	Node *pCurrent = *phead;
 	Node *pDelete = *phead;
 	int deletedAmount = 0; // how many node(s) the function deleted
-	int indicator = 1;
 	do {
 		if (pCurrent->data == x) { // if the first node is match x
 			*phead = pCurrent->next;
@@ -144,12 +112,14 @@ int DeleteNodes(Node** phead, double x) {
 			deletedAmount += 1;
 		}
 		else {
-			while (pCurrent->next->data != x) { // find the node before the delete node
+			while (pCurrent->next != NULL && pCurrent->next->data != x) { // find the node before the delete node
 				if (pCurrent->next->next == NULL) {
-					indicator = 0; // Can't find a valid Node
 					return deletedAmount; // return the deleted amount and pause the function
 				}
 				pCurrent = pCurrent->next;
+			}
+			if (pCurrent->next == NULL) {
+				return deletedAmount; // return the deleted amount and pause the function
 			}
 			pDelete = pCurrent->next;
 			pCurrent->next = pCurrent->next->next;
@@ -161,30 +131,21 @@ int DeleteNodes(Node** phead, double x) {
 		}
 		pCurrent = *phead;   /* Reset the pCurrent to pHead */
 		Node *pDelete = *phead; /* Reinit the pDelete to phead, ready for next delete */
-	} while (indicator != 0);
+	} while (*phead != NULL);
 	return deletedAmount;
 }
 
 void RemoveDuplicates(Node** phead) {
-	while (1) {
-		Node *pCurrent = *phead;
-		double currentNumber = pCurrent->data;
-		double duplicatedNumber;
-		duplicatedNumber = 0;
-		int duplicatedIndicator = 0;
-		while (pCurrent->next != NULL) {
-			pCurrent = pCurrent->next;
-			if (pCurrent->data == currentNumber) {
-				duplicatedIndicator = 1;
-				duplicatedNumber = currentNumber;
-				break;
+	Node *pCurrent = *phead;
+	while (*phead != NULL && pCurrent->next != NULL) {
+		if (pCurrent->data == pCurrent->next->data) {
+			DeleteNodes(phead, pCurrent->data);
+			pCurrent = *phead;
+			if (*phead == NULL) {
+				return;
 			}
+			continue;
 		}
-		if (duplicatedIndicator == 1 && duplicatedNumber != NULL) {
-			DeleteNodes(phead, duplicatedNumber);
-		}
-		if (duplicatedIndicator == 0 && pCurrent->next == NULL) {
-			return;
-		}
+		pCurrent = pCurrent->next;
 	}
 }
