@@ -7,6 +7,12 @@ int main(){
 	char testcase2[] = "([)]";
 	char testcase3[] = "{()}[";
 	char testcase4[] = "";
+
+	/* init all the test case
+	and print out the result
+	according to return
+	*/
+
 	if (ValidBrackets(testcase1)){
 		printf("case1, true\n");
 	}else{
@@ -44,28 +50,29 @@ bool ValidBrackets(char* str){
 	}
 
 	if(inputsLength % 2 != 0){ // the string length must be even (The brackets must match & close)
-		return false;
+		return false; // if not match, return false
 	}
 
-	for (int i = 0, j = inputsLength - 1; i < (int)(inputsLength / 2); i++, j--){
-		switch(str[i]){
+	for (int i = 0, j = inputsLength - 1; i < (int)(inputsLength / 2); i++, j--){ 
+		// i and j represent the checking index from front and end
+		switch(str[i]){ // for each bracket
 		case '(':
-			if(str[j] != ')'){
-				return false;
+			if(str[j] != ')'){ // check if there is a close bracket at the symmetrical position
+				return false; // if not match, return false
 			}
 			break;
 		case '[':
 			if(str[j] != ']'){
-				return false;
+				return false; // if not match, return false
 			}
 			break;
 		case '{':
 			if(str[j] != '}'){
-				return false;
+				return false; // if not match, return false
 			}
 			break;
 		default:
-			return false;
+			return false; // if not match, return false
 		}
 	}
 	return true;

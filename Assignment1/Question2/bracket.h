@@ -1,1 +1,1 @@
-bool ValidBrackets(char* str);
+bool ValidBrackets(char* str); // an function declare
