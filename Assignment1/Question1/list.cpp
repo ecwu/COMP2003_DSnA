@@ -137,15 +137,15 @@ int DeleteNodes(Node** phead, double x) {
 
 void RemoveDuplicates(Node** phead) {
 	Node *pCurrent = *phead;
-	while (*phead != NULL && pCurrent->next != NULL) {
-		if (pCurrent->data == pCurrent->next->data) {
-			DeleteNodes(phead, pCurrent->data);
-			pCurrent = *phead;
-			if (*phead == NULL) {
+	while (*phead != NULL && pCurrent->next != NULL) { // when the current and next node are not a null node
+		if (pCurrent->data == pCurrent->next->data) { // once the duplicated elements are exists
+			DeleteNodes(phead, pCurrent->data); // call DeleteNodes to delete the nodes with record X
+			pCurrent = *phead; // pCurrent reset to head
+			if (*phead == NULL) { // if the listed list is empty
 				return;
 			}
 			continue;
 		}
-		pCurrent = pCurrent->next;
+		pCurrent = pCurrent->next; // move to next node
 	}
 }
