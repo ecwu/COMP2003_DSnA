@@ -1,3 +1,4 @@
+#define _CRT_SECURE_NO_WARNINGS
 #include "stack.h"
 #include <stdio.h>
 
@@ -8,7 +9,7 @@ int main(void) {
 	char testCase3[] = "a11[c]d";
 	char testCase4[] = "3[a]2[bc]";
 	char testCase5[] = "3[a2[c]]";
-	char testCase6[] = "2[abb3[cd]]ef";
+	char testCase6[] = "2[abb3[cd28[sdfsd]]]ef";
 	printf("%s\n", Uncompress(NULL));
 	printf("%s\n", Uncompress(testCase1));
 	printf("%s\n", Uncompress(testCase2));
