@@ -41,4 +41,38 @@ bool Enqueue(Queue* queue, double x){
 	queue -> values[queue -> rear] = x;
 	queue -> counter++; // modify counter to indicate the queue status
 	return true;
-}bool Dequeue(Queue* queue, double* x){	if(IsEmpty(queue)){ // queue can't dequeue if the queue is empty		return false;	}	*x = queue -> values[queue -> front];	queue -> front = (queue -> front + 1) % queue -> maxSize; // Circular decrease index	queue -> counter--; // modify counter to indicate the queue status	return true;}void DisplayQueue(Queue* queue){	if(IsEmpty(queue)){		printf("The queue is empty.\n");	}	for (int i = 0; i < queue -> counter; i++){		int currentIndex = ((queue -> front + i) % (queue -> maxSize)); // use front, i and maxSize to calculate the correct index		if (currentIndex == queue -> front){ // if the current index is the front index			printf("front -->\t"); // print a front message		}else{			printf("\t\t"); // otherwise just print two tab		}		printf("%g", queue->values[currentIndex]); // print out the queue value according to index		if(currentIndex == queue -> rear){ // if the current index is the rear index			printf("\t<-- rear\n"); // print a rear message		}else{			printf("\n"); // otherwise just print a line break		}	}}void DestroyQueue(Queue* queue){	free(queue->values); // free the queue values array}
+}
+
+bool Dequeue(Queue* queue, double* x){
+	if(IsEmpty(queue)){ // queue can't dequeue if the queue is empty
+		return false;
+	}
+	*x = queue -> values[queue -> front];
+	queue -> front = (queue -> front + 1) % queue -> maxSize; // Circular decrease index
+	queue -> counter--; // modify counter to indicate the queue status
+	return true;
+}
+
+void DisplayQueue(Queue* queue){
+	if(IsEmpty(queue)){
+		printf("The queue is empty.\n");
+	}
+	for (int i = 0; i < queue -> counter; i++){
+		int currentIndex = ((queue -> front + i) % (queue -> maxSize)); // use front, i and maxSize to calculate the correct index
+		if (currentIndex == queue -> front){ // if the current index is the front index
+			printf("front -->\t"); // print a front message
+		}else{
+			printf("\t\t"); // otherwise just print two tab
+		}
+		printf("%g", queue->values[currentIndex]); // print out the queue value according to index
+		if(currentIndex == queue -> rear){ // if the current index is the rear index
+			printf("\t<-- rear\n"); // print a rear message
+		}else{
+			printf("\n"); // otherwise just print a line break
+		}
+	}
+}
+
+void DestroyQueue(Queue* queue){
+	free(queue->values); // free the queue values array
+}
